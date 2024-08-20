@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HackerForYoutube.exs</title>
+    <style>
+        @keyframes rgbText {
+            0% { color: red; }
+            33% { color: green; }
+            66% { color: blue; }
+            100% { color: red; }
+        }
+
+        @keyframes rgbBackground {
+            0% { background-color: red; }
+            33% { background-color: green; }
+            66% { background-color: blue; }
+            100% { background-color: red; }
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #111;
+            color: #00FF00;
+            text-align: center;
+            margin-top: 50px;
+            position: relative;
+            height: 100vh;
+        }
+
+        h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+            animation: rgbText 3s infinite;
+        }
+
+        p.fake-site {
+            color: red;
+            margin-top: 0;
+            font-size: 1.2em;
+        }
+
+        input[type="text"] {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 2px solid #00FF00;
+            background-color: #222;
+            color: #00FF00;
+        }
+
+        .button {
+            background-color: #00FF00;
+            color: #111;
+            padding: 10px 20px;
+            margin: 10px;
+            border: none;
+            cursor: pointer;
+            font-size: 1em;
+        }
+
+        #loadingBar {
+            width: 0%;
+            height: 30px;
+            margin-top: 20px;
+            animation: rgbBackground 1.5s infinite;
+            transition: width 2s;
+        }
+
+        #result {
+            display: none;
+            margin-top: 20px;
+        }
+
+        #result p {
+            font-size: 1.2em;
+        }
+
+        .separator {
+            width: 80%;
+            height: 2px;
+            background-color: gray;
+            margin: 50px auto;
+        }
+
+        .credits {
+            margin-top: 20px;
+            font-size: 1em;
+            color: #00FF00;
+        }
+
+        .credits img {
+            max-width: 150px;
+            margin-top: 10px;
+            border: 2px solid #00FF00;
+            cursor: pointer;
+        }
+
+        #error-message {
+            color: red;
+            margin-top: 5px;
+            display: none;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>HackerForYoutube.exs</h1>
+    <p class="fake-site">Este site é Fake</p>
+
+    <p>URL do Youtuber:</p>
+    <input type="text" id="youtubeUrl" placeholder="https://www.youtube.com/channel/ABC123">
+    
+    <p>Nome do Youtuber:</p>
+    <input type="text" id="youtubeName" placeholder="Nome do canal">
+    
+    <p>@ do Youtube:</p>
+    <input type="text" id="youtubeAt" placeholder="@doCanal">
+    
+    <p>
+        <input type="checkbox" id="notARobot"> Confirmo que não sou um robô
+        <span id="error-message">Faça a verificação para completar</span>
+    </p>
+    
+    <button class="button" onclick="startHacking()">Começar</button>
+    
+    <div id="loadingBar"></div>
+    
+    <div id="result">
+        <p><strong>Email:</strong> <span id="generatedEmail"></span></p>
+        <p><strong>Senha:</strong> <span id="generatedPassword"></span></p>
+    </div>
+
+    <div class="separator"></div>
+
+    <div class="credits">
+        <p>Criado por: OMiMikael</p>
+        <a href="https://linktr.ee/MiMikael" target="_blank">
+            <img src="channels4_profile.jpg" alt="OMiMikael YouTube Channel">
+        </a>
+    </div>
+    
+    <script>
+        function generateRandomString(length) {
+            let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            let result = '';
+            for (let i = 0; i < length; i++) {
+                result += characters.charAt(Math.floor(Math.random() * characters.length));
+            }
+            return result;
+        }
+
+        function startHacking() {
+            let checkbox = document.getElementById('notARobot');
+            let errorMessage = document.getElementById('error-message');
+
+            if (!checkbox.checked) {
+                errorMessage.style.display = 'inline';
+                return;
+            }
+
+            errorMessage.style.display = 'none';
+            
+            let youtubeName = document.getElementById('youtubeName').value.replace(/\s+/g, '').toLowerCase();
+            let email = youtubeName + generateRandomString(5) + '@gmail.com';
+            let password = generateRandomString(12);
+
+            let loadingBar = document.getElementById('loadingBar');
+            loadingBar.style.width = "0%";
+            loadingBar.style.display = "block";
+            
+            setTimeout(function() {
+                loadingBar.style.width = "100%";
+            }, 100);
+
+            setTimeout(function() {
+                document.getElementById('result').style.display = 'block';
+                document.getElementById('generatedEmail').textContent = email;
+                document.getElementById('generatedPassword').textContent = password;
+            }, 2000);
+        }
+    </script>
+
+</body>
+</html>
+
